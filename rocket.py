@@ -1,7 +1,7 @@
 import pygame as py
 
 class Rocket:
-    def __init__(self,x,y,l,t,screen,color,fps,rs):
+    def __init__(self,x,y,l,t,screen,color,fps,rs,mmoi):
         self.x = x
         self.y = y
         self.l = l
@@ -14,8 +14,12 @@ class Rocket:
         self.rotated_surface = self.surface
         self.rotational_speed = rs/fps
         self.angle = 0
+        self.mmoi = mmoi
     def rotation(self):
-        self.angle += self.rotational_speed
+        if self.rotational_speed > self.mmoi:
+            self.angle += self.rotational_speed
+        else:
+            self.rotational_speed = 0
         self.rotated_surface = py.transform.rotate(self.surface, self.angle)
         self.rect = self.rotated_surface.get_rect(center = (self.l + self.x/2,self.t + self.y/2))
         self.screen.blit(self.rotated_surface, (self.rect.x, self.rect.y))
