@@ -14,10 +14,10 @@ class Rocket:
         self.rotated_surface = self.surface
         self.rotational_speed = rs/fps
         self.angle = 0
-    def draw(self):
-        self.screen.blit(self.surface,(self.l,self.t))
     def rotation(self):
         self.angle += self.rotational_speed
         self.rotated_surface = py.transform.rotate(self.surface, self.angle)
         self.rect = self.rotated_surface.get_rect(center = (self.l + self.x/2,self.t + self.y/2))
         self.screen.blit(self.rotated_surface, (self.rect.x, self.rect.y))
+    def set_angle(self,angle):
+        self.angle = angle

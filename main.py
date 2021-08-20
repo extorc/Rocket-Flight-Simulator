@@ -1,4 +1,5 @@
 from sim import *
 
-sim = Sim((100,100,100),(600,600),"Simulator",30,(255,255,255),180)
+sim = Sim((120,150,255),(600,600),"Rocket Simulator",30,(255,255,255),1,0)
+sim.rocket.set_angle(-45)
 sim.simulate()
