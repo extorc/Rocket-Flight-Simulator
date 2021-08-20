@@ -1,6 +1,5 @@
 import pygame
 from rocket import *
-from proportional_integral_derivative import compute_pid
 class Sim:
     def __init__(self,bgcolor,dim,caption,fps,rocket_color,rotation,desired_rot,mmoi):
         self.bgcolor = bgcolor
@@ -26,8 +25,12 @@ class Sim:
             if event.type == pygame.QUIT:
               self.running = False
           self.error_log.append(self.get_error())
-          self.rocket.rotational_speed = compute_pid(self.get_error(),self.error_log)/self.fps
+          self.rocket.rotational_speed = self.compute_pid(self.get_error(),self.error_log)/self.fps
           self.rocket.rotation()
           py.display.update()
     def get_error(self):
         return self.desired_rot-self.rocket.angle
+    def compute_pid(self,error,error_log):
+        pgain = 1
+        pid = error * pgain
+        return pid
