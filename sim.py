@@ -9,14 +9,13 @@ pygame.display.set_caption('Simulator')
 pygame.display.flip()
 running = True
 clock = py.time.Clock()
-
+fps = 30
 #rocket info
 rocket_dim_x = 30
 rocket_dim_y = 250
-r = Rocket(rocket_dim_x,rocket_dim_y,width/2-rocket_dim_x/2,height/2-rocket_dim_y/2,screen,(255,255,255))
-
+r = Rocket(rocket_dim_x,rocket_dim_y,width/2-rocket_dim_x/2,height/2-rocket_dim_y/2,screen,(255,255,255),fps,90)
 while running:
-  clock.tick(40)
+  clock.tick(fps)
   screen.fill(background_colour)
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
