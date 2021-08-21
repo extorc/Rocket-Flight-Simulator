@@ -25,12 +25,31 @@ class Sim:
             if event.type == pygame.QUIT:
               self.running = False
           self.error_log.append(self.get_error())
-          self.rocket.rotational_speed = self.compute_pid(self.get_error(),self.error_log)/self.fps
+          p,i,d = self.compute_pid(self.get_error(),self.error_log,1,1,1)
+          self.rocket.rotational_speed = p/self.fps
+          # print(i,d)
+          print(self.rocket.rotational_speed)
           self.rocket.rotation()
           py.display.update()
     def get_error(self):
         return self.desired_rot-self.rocket.angle
-    def compute_pid(self,error,error_log):
-        pgain = 1
-        pid = error * pgain
-        return pid
+    def compute_pid(self,error,error_log,pg,ig,dg):
+        pgain = pg
+        dgain = dg
+        Igain = ig
+        Iedx = 0
+        i = 0
+        p = error * pgain
+        try:
+            d_error = error_log[len(error_log)-3]
+            d_2error = error_log[len(error_log)-1]
+        except:
+            d_error = 0
+            d_2error = 0
+        d = dgain*((d_error-d_2error)/3)
+        for e in error_log:
+            Iedx += e
+        i = Iedx
+        Iedx = 0
+        i = i * Igain
+        return (p,i,d)
