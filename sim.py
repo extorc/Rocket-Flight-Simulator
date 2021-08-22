@@ -1,10 +1,8 @@
 import pygame
 from rocket import *
 class Sim:
-    def __init__(self,bgcolor,dim,caption,fps,rocket_color,rotation,desired_rot,mmoi):
-        self.bgcolor = bgcolor
+    def __init__(self,dim,fps,rocket_color,rotation,desired_rot,mmoi):
         self.screen = pygame.display.set_mode(dim)
-        pygame.display.set_caption(caption)
         pygame.display.flip()
         self.running = True
         self.clock = py.time.Clock()
@@ -20,7 +18,7 @@ class Sim:
     def simulate(self):
         while self.running:
           self.clock.tick(self.fps)
-          self.screen.fill(self.bgcolor)
+          self.screen.fill(self.bg_color)
           for event in pygame.event.get():
             if event.type == pygame.QUIT:
               self.running = False
@@ -54,3 +52,8 @@ class Sim:
         Iedx = 0
         i = i * Igain
         return (p,i,d)
+    def set_bg_color(self,bg_color):
+        self.bg_color = bg_color
+    def set_caption(self,caption):
+        self.caption = caption
+        pygame.display.set_caption(caption)
